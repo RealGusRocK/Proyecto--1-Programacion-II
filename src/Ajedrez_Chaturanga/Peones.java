@@ -9,10 +9,14 @@ package Ajedrez_Chaturanga;
  * @author Gustavo
  */
 public class Peones extends Piezas{
+    
+    
 
-    public Peones(String P1){
-        this.nombrePieza1=P1;
+    public Peones(String P1,int j){
+        super(P1,j);
     }
+    
+    @Override
     public String imprimir(){
         return this.nombrePieza1;
     }

@@ -19,6 +19,9 @@ public class Main {
         String Jugador1;
         String Jugador2;
         
+        tablero.generarTablero();
+        tablero.imprimirTablero();
+        
         for(int i=0;i==0;i*=0){
             System.out.println("*********\t\t MENU PRINCIPAL \t\t*********");
             System.out.println("");
