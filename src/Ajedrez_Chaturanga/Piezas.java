@@ -14,6 +14,8 @@ public class Piezas {
     protected String nombrePieza1;  // Nombre de la Pieza.
     protected int jugador;          //Variable para almacenar a que jugador Pertenece la ficha. 
     protected int pasos=0;          //Contador del numero de pasos dado por la ficha.
+    public static int PiezasPerdidas1=0;
+    public static int PiezasPerdidas2=0;
     
     public Piezas(String n,int j){
         this.nombrePieza1=n;

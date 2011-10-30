@@ -10,7 +10,6 @@ package Ajedrez_Chaturanga;
  */
 public class Peones extends Piezas{
     
-    
 
     public Peones(String P1,int j){
         super(P1,j);
@@ -20,4 +19,6 @@ public class Peones extends Piezas{
     public String imprimir(){
         return this.nombrePieza1;
     }
+    
+    
 }

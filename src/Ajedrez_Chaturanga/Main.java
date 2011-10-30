@@ -14,13 +14,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner lea=new Scanner(System.in);
         int opc1=0;
+        int fili = 0,coli = 0,filf = 0,colf = 0;
         TableroJuego tablero=new TableroJuego();
         String piezamover;
         String Jugador1;
         String Jugador2;
         
-        tablero.generarTablero();
-        tablero.imprimirTablero();
         
         for(int i=0;i==0;i*=0){
             System.out.println("*********\t\t MENU PRINCIPAL \t\t*********");
@@ -43,10 +42,53 @@ public class Main {
                     tablero.imprimirTablero();
                     System.out.println("Jugador 1 es su turno");
                     System.out.println("");
-                    System.out.println("Ingrese la pieza que desea Mover.");
-                    piezamover=lea.next();
-                    tablero.verificarPieza(piezamover);
-                    
+                    for(int f=0;f==0;f*=0){
+                        System.out.println("Numero de Fila de la ficha a mover:");
+                        fili=lea.nextInt();
+                        if(fili>=1 && fili<=8)
+                            break;
+                        else
+                            System.out.println("Ingrese una fila correcta.");
+                    }
+                    for(int f=0;f==0;f*=0){
+                        System.out.println("Numero de Columna de la ficha a mover:");
+                        coli=lea.nextInt();
+                        if(coli>=1 && coli<=8){
+                            break;
+                        }else{
+                            System.out.println("Numero de Columna Invalida.");
+                        }
+                    }
+                            if(tablero.verificarPieza(fili-1, coli-1, 1)){
+                                for(int e=0;e==0;e*=0){
+                                    System.out.println("Fila a mover la pieza: ");
+                                    filf=lea.nextInt();
+                                    if(filf<1 && filf>8){
+                                        System.out.println("Ingrese una fila correcta.");
+                                        continue;
+                                    }else if(filf>=1 && filf<=8){
+                                        break;
+                                    }
+                                }
+                                for(int e=0;e==0;e*=0){
+                                    System.out.println("Columna a mover la pieza: ");
+                                    colf=lea.nextInt();
+                                    if(colf>=1 && colf<=8){
+                                        break;
+                                    }else{
+                                        System.out.println("Ingrese una columna correcta.");
+                                        continue;
+                                    }
+                                    
+                                }
+                                
+                            }else{
+                                continue;
+                            }
+                            
+                            tablero.moverPieza(filf-1, colf-1, fili-1, coli-1, 1);
+                            
+                            System.out.println("Jugador 2 Es su Turno.");
                 }
                 
             }else if(opc1==2){
