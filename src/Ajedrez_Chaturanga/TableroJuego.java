@@ -52,6 +52,19 @@ public class TableroJuego {
         }
     }
     public boolean verificarPieza(int x, int y,int j){
+        if(tablero[x][y] instanceof Peones){
+            System.out.println("Ha selecciona un Peon.");
+        }else if(tablero[x][y] instanceof Torres){
+            System.out.println("Ha seleccionado una Torre.");
+        }else if(tablero[x][y] instanceof Elefantes){
+            System.out.println("Ha seleccionado un Elefante.");
+        }else if(tablero[x][y] instanceof Caballos){
+            System.out.println("Ha seleccionado un Caballo.");
+        }else if(tablero[x][y] instanceof Rey){
+            System.out.println("Ha seleccionado al Rey.");
+        }else if(tablero[x][y] instanceof Visir){
+            System.out.println("Ha seleccionado al Visir.");
+        }
         if(((Piezas)tablero[x][y]).nombrePieza1.equals("  - ")){
             System.out.println("Pieza Invalida.");
             return false;
@@ -66,17 +79,17 @@ public class TableroJuego {
 
     }
     public void moverPieza(int x, int y,int a, int b, int j){
-        if(tablero[x][y] instanceof Peones){
+        if(tablero[a][b] instanceof Peones){
             moverPeon(x,y,a,b,j);
         }
         
     }
     public void moverPeon(int x,int y,int a,int b,int j){
-            if(x-a==1 || x-a==-1 && y==b && tablero[x][y]==null){
+            if(x-a==1 || x-a==-1 && y==b && tablero[x][y].equals("  - ")){   //x-a tiene q ser 1. Ya q es la cantidad d espacios a avanzar
                 if(j==1)
-                    tablero[x][y]=new Peones("PR",j);
+                    tablero[x][y]=new Peones(" PR ",j);
                 else
-                    tablero[x][y]=new Peones("PV",j);
+                    tablero[x][y]=new Peones(" PV ",j);
                   //  ((Peones)tablero[x][y]).nombrePieza1=((Peones)tablero[a][b]).nombrePieza1;
                     tablero[a][b]=new Object();
                     tablero[a][b]="  - ";
