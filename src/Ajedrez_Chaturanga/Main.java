@@ -39,8 +39,10 @@ public class Main {
                 tablero.generarTablero();
                 for(int j=0;j==0;j*=0){
                     
-                    tablero.imprimirTablero();
                     System.out.println("Jugador 1 es su turno");
+                    System.out.println("");
+                    tablero.imprimirTablero();
+                    
                     System.out.println("");
                     for(int f=0;f==0;f*=0){
                         System.out.println("Numero de Fila de la ficha a mover:");

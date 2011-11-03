@@ -35,6 +35,8 @@ public class TableroJuego {
     }
     public void imprimirTablero(){
         int cont=0;
+        System.out.println("Rojos: "+Piezas.PiezasPerdidas1+"\t\t  Verdes: "+Piezas.PiezasPerdidas2);
+        System.out.println("");
         System.out.println("  1   2   3   4   5   6   7   8");
         for(Object figura[]: tablero){
             System.out.print(cont+1);
@@ -65,16 +67,21 @@ public class TableroJuego {
         }else if(tablero[x][y] instanceof Visir){
             System.out.println("Ha seleccionado al Visir.");
         }
-        if(((Piezas)tablero[x][y]).nombrePieza1.equals("  - ")){
+        if(tablero[x][y].equals("  - ")){
             System.out.println("Pieza Invalida.");
             return false;
         }else{
+            if(tablero[x][y] instanceof Piezas){
              if(((Piezas)tablero[x][y]).jugador==j){
                  return true;
              }else{
                  System.out.println("Pieza de jugador contrario.");
                  return false;
              }
+        }else{
+                System.out.println("No ha seleccionada alguna ficha.");
+                return false;
+            }
         }
 
     }
