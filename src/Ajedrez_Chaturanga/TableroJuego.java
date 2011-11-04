@@ -4,6 +4,8 @@ package Ajedrez_Chaturanga;
 public class TableroJuego {
     private static Object tablero[][]=new Object [8][8];
     private boolean verificarpieza=false;
+    public String nombreJ1;
+    public String nombreJ2;
     
     public void generarTablero(){
         for(int a=0;a<tablero.length;a++){
@@ -18,8 +20,8 @@ public class TableroJuego {
         tablero[7][2]=new Elefantes(" EV ",2);
         tablero[0][3]=new Visir(" VR ",1);
         tablero[7][3]=new Visir(" VV ",2);
-        tablero[0][4]=new Rey(" RR ",1);
-        tablero[7][4]=new Rey(" RV ",2);
+        tablero[0][4]=new Rey(" RR ",1,true);
+        tablero[7][4]=new Rey(" RV ",2,true);
         tablero[0][5]=new Elefantes(" ER ",1);
         tablero[7][5]=new Elefantes(" EV ",2);
         tablero[0][6]=new Caballos(" CR ",1);
@@ -85,34 +87,398 @@ public class TableroJuego {
         }
 
     }
-    public void moverPieza(int x, int y,int a, int b, int j){
+    public boolean moverPieza(int x, int y,int a, int b, int j){
+        mostrarMensaje(x,y,a,b,j);
         if(tablero[a][b] instanceof Peones){
             moverPeon(x,y,a,b,j);
+            return true;
+        }else if(tablero[a][b] instanceof Caballos){
+            if(moverCaballo(x,y,a,b,j))
+            return true;
+            else
+                return false;
+        }else if (tablero[a][b] instanceof Visir){
+            if(moverVisir(x,y,a,b,j))
+            return true;
+                else
+                return false;
+        }else if(tablero[a][b] instanceof Torres){
+            if(moverTorre(x,y,a,b,j))
+                return true;
+            else
+                return false;
+        }else if(tablero[a][b] instanceof Elefantes){
+            if(moverElefante(x,y,a,b,j))
+                return true;
+            else
+                return false;
+        }else if(tablero[a][b] instanceof Rey){
+            if(moverRey(x,y,a,b,j))
+                return true;
+            else
+                return false;
+        }else{
+            return false;
         }
         
     }
-    public void moverPeon(int x,int y,int a,int b,int j){
-            if(x-a==1 || x-a==-1 && y==b && tablero[x][y].equals("  - ")){   //x-a tiene q ser 1. Ya q es la cantidad d espacios a avanzar
+    public boolean moverPeon(int x,int y,int a,int b,int j){
+        if(tablero[x][y] instanceof String){
+            if(((x-a==1 || x-a==-1) && (y==b))){
                 if(j==1)
                     tablero[x][y]=new Peones(" PR ",j);
                 else
                     tablero[x][y]=new Peones(" PV ",j);
-                  //  ((Peones)tablero[x][y]).nombrePieza1=((Peones)tablero[a][b]).nombrePieza1;
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                return true;
+            }else{
+                System.out.println("Alguno de los datos ingresados es erroneo.");
+                return false;
+            }
+        }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            if(((x-a==1 || x-a==-1) && (y!=b))){
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                if(j==1){
+                    tablero[x][y]=new Peones(" PR ",1);
+                    Piezas.PiezasPerdidas2++;
+                }else{
+                    tablero[x][y]=new Peones(" PV ",2);
+                    Piezas.PiezasPerdidas1++;
+               }
+                return true;
+            }else{
+                System.out.println("Moviemiento Invalido.");
+                return false;
+            }
+        }else if( tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador==j){
+            System.out.println("En esa posicion se encuentra una pieza propia.");
+            return false;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean moverCaballo(int x,int y,int a,int b,int j){
+        if(tablero[x][y] instanceof String){
+            if(((x-a==2 || x-a==-2) && (y-b==1 || y-b==-1)) || ((x-a==1 || x-a==-1) && (y-b==2 || y-b==-2))){
+                if(j==1)
+                    tablero[x][y]=new Caballos(" CR ",j);
+                else
+                    tablero[x][y]=new Caballos(" CV ",j);
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                return true;
+            }else{
+                System.out.println("Alguno de los datos ingresados es erroneo.");
+                return false;
+            }
+        }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            if((((x-a==1 || x-a==-1)) && ((y-b==2 || y-b==-2))) || ((x-a==2 || x-a==-2) && (y-b==1 || y-b==-1))){
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                if(j==1){
+                    tablero[x][y]=new Caballos(" CR ",1);
+                    Piezas.PiezasPerdidas2++;
+                }else{
+                    tablero[x][y]=new Caballos(" CR ",2);
+                    Piezas.PiezasPerdidas1++;
+               }
+                return true;
+            }else{
+                System.out.println("Moviemiento Invalido.");
+                return false;
+            }
+        }else if( tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador==j){
+            System.out.println("En esa posicion se encuentra una pieza propia.");
+            return false;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean moverVisir(int x,int y,int a,int b,int j){
+        if(tablero[x][y] instanceof String){
+            if(((x-a==1 || x-a==-1) && (y-b==1 || y-b==-1))){
+                if(j==1)
+                    tablero[x][y]=new Visir(" VR ",j);
+                else
+                    tablero[x][y]=new Visir(" VV ",j);
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                return true;
+            }else{
+                System.out.println("Movimiento Invalido.");
+                return false;
+            }
+        }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            if((((x-a==1 || x-a==-1)) && ((y-b==1 || y-b==-1)))){
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                if(j==1){
+                    tablero[x][y]=new Visir(" VR ",1);
+                    Piezas.PiezasPerdidas2++;
+                }else{
+                    tablero[x][y]=new Visir(" VR ",2);
+                    Piezas.PiezasPerdidas1++;
+               }
+                return true;
+            }else{
+                System.out.println("Moviemiento Invalido.");
+                return false;
+            }
+        }else if( tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador==j){
+            System.out.println("En esa posicion se encuentra una pieza propia.");
+            return false;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean moverTorre(int x, int y, int a,int b, int j){
+        if(valTorre(x,y,a,b,1)){
+            if(tablero[x][y] instanceof String){
+                if(x==a && y!=b){
                     tablero[a][b]=new Object();
                     tablero[a][b]="  - ";
-            }else if((x-a==1 || x-a==-1 && y!=b) && tablero[x][y]!=null &&((Peones)tablero[x][y]).jugador!=j){
-                    ((Piezas)tablero[x][y]).nombrePieza1=((Piezas)tablero[a][b]).nombrePieza1;
+                    if(j==1)
+                        tablero[x][y]=new Torres(" TR ",1);
+                    else
+                        tablero[x][y]=new Torres(" TV ",2);
+                    return true;
+                }else if(x!=a && y==b){
+                    tablero[a][b]=new Object();
+                    tablero[a][b]="  - ";
+                    if(j==1)
+                        tablero[x][y]=new Torres(" TR ",1);
+                    else
+                        tablero[x][y]=new Torres(" TV ",2);
+                    return true;
+                }else{
+                    System.out.println("Movimiento invalido.");
+                    return false;
+                }
+            }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+                if((x==a && y!=b) || (x!=a && y==b)){
                     tablero[a][b]=new Object();
                     tablero[a][b]="  - ";
                     if(j==1){
+                        tablero[x][y]=new Torres(" TR ",1);
                         Piezas.PiezasPerdidas2++;
                     }else{
+                        tablero[x][y]=new Torres(" TV ",2);
                         Piezas.PiezasPerdidas1++;
                     }
-                }else if((x-a==1 || x-a==-1 && y!=b) && tablero[x][y]!=null &&((Peones)tablero[x][y]).jugador==j){
-                    System.out.println("Ya hay una pieza propia en esa posicion.");
+                    return true;
                 }else{
-                System.out.println("Movimiento invalido.");
+                    System.out.println("Movimiento Invalido.");
+                    return false;
+                }
+            }else{
+                System.out.println("Ya hay una pieza propia en esa posicion.");
+                return false;
+            } 
+        }else{
+            System.out.println("Movimiento Invalido.");
+            return false;
+        }
+    }
+    public boolean valTorre(int x,int y,int a,int b,int c){ //Mandar parametro c=0;
+        if((x==a && y!=b)){
+            if(y>b){
+               if((b+c)<y){
+                    if(tablero[x][b+c] instanceof Piezas){
+                        return false;
+                    }else{
+                        return valTorre(x,y,a,b,c+1);
+                    }
+               }else{
+                   return true;
+               }
+            }else{
+                if(b-c>y){
+                    if(tablero[x][b-c] instanceof Piezas){
+                        return false;
+                    }else{
+                        return valTorre(x,y,a,b,c+1);
+                    }
+               }else{
+                   return true;
+               }
+                }
+            }else if((x!=a && y==b)){
+              if(x>a){
+               if((a+c)<x){
+                    if(tablero[a+c][y] instanceof Piezas){
+                        return false;
+                    }else{
+                        return valTorre(x,y,a,b,c+1);
+                    }
+               }else{
+                   return true;
+               }
+            }else{
+                if(a-c>x){
+                    if(tablero[a-c][y] instanceof Piezas){
+                        return false;
+                    }else{
+                        return valTorre(x,y,a,b,c+1);
+                    }
+               }else{
+                   return true;
+               }
             }
+        }else{
+                return false;
+            }
+    }
+    
+    public boolean moverElefante(int x, int y, int a,int b, int j){
+            if(tablero[x][y] instanceof String){
+                if((x-a==2 || x-a==-2) && (y-b==2 || y-b == -2)){
+                    tablero[a][b]=new Object();
+                    tablero[a][b]="  - ";
+                    if(j==1)
+                        tablero[x][y]=new Elefantes(" ER ",1);
+                    else
+                        tablero[x][y]=new Elefantes(" EV ",2);
+                    return true;
+                }else{
+                    System.out.println("Movimiento invalido.");
+                    return false;
+                }
+            }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+                if((x-a==2 || x-a==-2) && (y-b==2 || y-b == -2)){
+                    tablero[a][b]=new Object();
+                    tablero[a][b]="  - ";
+                    if(j==1){
+                        tablero[x][y]=new Elefantes(" ER ",1);
+                        Piezas.PiezasPerdidas2++;
+                    }else{
+                        tablero[x][y]=new Elefantes(" EV ",2);
+                        Piezas.PiezasPerdidas1++;
+                    }
+                    return true;
+                }else{
+                    System.out.println("Movimiento Invalido.");
+                    return false;
+                }
+            }else{
+                System.out.println("Ya hay una pieza propia en esa posicion.");
+                return false;
+            } 
+        
+    }
+    
+    public boolean moverRey(int x, int y, int a, int b, int j){
+        if(tablero[x][y] instanceof String){
+            if((x==a && (y-b==1 || y-b==-1)) || (y==b && (x-a==1 || x-a==-1)) || ((x-a==-1 || x-a==1) && (y-b==1 || y-b==-1))){
+                
+               
+                if(j==1){
+                    if( tablero[a][b] instanceof Rey &&((Rey)tablero[a][b]).movimientoL)
+                        tablero[x][y]=new Rey(" RR ",1,true);
+                    else
+                        tablero[x][y]=new Rey(" RR ",1,false);
+                }else{
+                    if(tablero[a][b] instanceof Rey && ((Rey)tablero[a][b]).movimientoL)
+                        tablero[x][y]=new Rey(" RV ",2,true);
+                    else
+                        tablero[x][y]=new Rey(" RV ",2,false);
+                }
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                 return true;
+            }else if((((x-a==2 || x-a==-2) && (y-b==1 || y-b==-1)) || ((x-a==1 || x-a==-1) && (y-b==2 || y-b==-2))) && (tablero[a][b] instanceof Rey && ((Rey)tablero[a][b]).movimientoL==true)){
+
+                if(j==1)
+                    tablero[x][y]=new Rey(" RR ",1,false);
+                else
+                    tablero[x][y]=new Rey(" RV ",2,false);
+                System.out.println("Ha utilizado el movimiento especial mortal del Rey");
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                return true;
+            }else{
+                System.out.println("Movimiento Invalido.");
+                return false;
+            }
+        }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            if((x==a && (y-b==1 || y-b==-1)) || (y==b && (x-a==1 || x-a==-1)) || ((x-a==-1 || x-a==1) && (y-b==1 || y-b==-1))){
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                if(j==1){
+                    if(((Rey)tablero[x][y]).movimientoL)
+                        tablero[x][y]=new Rey(" RR ",1,true);
+                    else
+                        tablero[x][y]=new Rey(" RR ",1,false);
+                    Piezas.PiezasPerdidas2++;
+                }else{
+                    if(((Rey)tablero[x][y]).movimientoL)
+                        tablero[x][y]=new Rey(" RV ",2,true);
+                    else
+                        tablero[x][y]=new Rey(" RV ",2,false);
+                    Piezas.PiezasPerdidas2++;
+                }
+                return true;
+            }else if(((x-a==2 || x-a==-2) && (y-b==1 || y-b==-1)) || ((x-a==1 || x-a==-1) && (y-b==2 || y-b==-2)) && (tablero[a][b] instanceof Rey && ((Rey)tablero[a][b]).movimientoL==true)){
+                ((Rey)tablero[a][b]).movimientoL=false;
+                tablero[a][b]=new Object();
+                tablero[a][b]="  - ";
+                if(j==1){
+                    tablero[x][y]=new Rey(" RR ",1,false);
+                    Piezas.PiezasPerdidas2++;
+                }else{
+                    tablero[x][y]=new Rey(" RV ",2,false);
+                    Piezas.PiezasPerdidas1++;
+                }
+                System.out.println("Ha utilizado el movimiento especial mortal del Rey");
+                
+                return true;
+            }else{
+                System.out.println("Movimiento Invalido.");
+                return false;
+            }
+        }else{
+            System.out.println("Movimiento Invalido.");
+            return false;
+        }
+    }
+    
+    public void mostrarMensaje(int x, int y, int a, int b,int j){
+        String pieza1="", pieza2="";
+        if(tablero[x][y] instanceof Piezas){
+            if(tablero[a][b] instanceof Peones){
+                pieza1="Peon";
+            }else if(tablero[a][b] instanceof Caballos){
+                pieza1="Caballo";
+            }else if(tablero[a][b] instanceof Elefantes){
+                pieza1="Elefante";
+            }else if(tablero[a][b] instanceof Torres){
+                pieza1="Torre";
+            }else if(tablero[a][b] instanceof Rey){
+                pieza1="Rey";
+            }else if(tablero[a][b] instanceof Visir){
+                pieza1="Visir";
+            }
+            if(tablero[x][y] instanceof Peones){
+                pieza2="Peon";
+            }else if(tablero[x][y] instanceof Caballos){
+                pieza2="Caballo";
+            }else if(tablero[x][y] instanceof Elefantes){
+                pieza2="Elefante";
+            }else if(tablero[x][y] instanceof Torres){
+                pieza2="Torre";
+            }else if(tablero[x][y] instanceof Rey){
+                pieza2="Rey";
+            }else if(tablero[x][y] instanceof Visir){
+                pieza2="Visir";
+            }
+            
+            if(j==1){
+                System.out.println(this.nombreJ1+" se comio con la pieza "+pieza1+" a la pieza "+pieza2+ " del jugador "+this.nombreJ2);
+            }
+        }
     }
 }

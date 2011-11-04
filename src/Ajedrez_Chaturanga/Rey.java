@@ -9,7 +9,10 @@ package Ajedrez_Chaturanga;
  * @author Gustavo
  */
 public class Rey extends Piezas{
-    public Rey(String n, int j){
+    public boolean movimientoL;
+    
+    public Rey(String n, int j,boolean t){
         super(n,j);
+        this.movimientoL=t;
     }
 }
