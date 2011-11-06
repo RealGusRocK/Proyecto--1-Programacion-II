@@ -19,9 +19,9 @@ public class TableroJuego {
         tablero[7][1]=new Caballos(" CV ",2);
         tablero[0][2]=new Elefantes(" ER ",1);
         tablero[7][2]=new Elefantes(" EV ",2);
-        tablero[0][3]=new Visir(" VR ",1);
+        tablero[0][4]=new Visir(" VR ",1);
         tablero[7][3]=new Visir(" VV ",2);
-        tablero[0][4]=new Rey(" RR ",1,true);
+        tablero[0][3]=new Rey(" RR ",1,true);
         tablero[7][4]=new Rey(" RV ",2,true);
         tablero[0][5]=new Elefantes(" ER ",1);
         tablero[7][5]=new Elefantes(" EV ",2);
@@ -89,7 +89,7 @@ public class TableroJuego {
 
     }
     public boolean moverPieza(int x, int y,int a, int b, int j){
-        mostrarMensaje(x,y,a,b,j);
+        //mostrarMensaje(x,y,a,b,j);
         if(tablero[a][b] instanceof Peones){
             moverPeon(x,y,a,b,j);
             return true;
@@ -123,8 +123,70 @@ public class TableroJuego {
         }
         
     }
+    public void valJaquePeon(int x, int y, int j){
+          if(j==1){
+            if(x!=7 && y!=7 && x!=0 && y!=0){
+                if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+                    System.out.println("El rey del Jugador "+this.nombreJ2+" esta en peligro.");
+                    
+                }
+            }else if(x>=0 && x<=7 && y>0 && y<7){
+                if(x==7){
+                    if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j)){
+                        System.out.println("El rey del Jugador "+this.nombreJ2+" esta en peligro.");
+                    }
+                }else if(x==0){
+                   if( (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+                    System.out.println("El rey del Jugador "+this.nombreJ2+" esta en peligro.");
+                    
+                    }    
+                }
+            }else if(x>0 && y<7 && x>=0 && x<=7){
+                if(y==7){
+                    if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j)){
+                        System.out.println("El rey del Jugador "+this.nombreJ2+" esta en peligro.");
+                    }
+                }else if(y==0){
+                    if( (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+                        System.out.println("El rey del Jugador "+this.nombreJ2+" esta en peligro.");
+                    
+                    }
+                }
+            }
+        }else{
+             if(x!=7 && y!=7 && x!=0 && y!=0){
+                if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+                    System.out.println("El rey del Jugador "+this.nombreJ1+" esta en peligro.");
+                    
+                }
+            }else if(x>=0 && x<=7 && y>0 && y<7){
+                if(x==7){
+                    if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j)){
+                        System.out.println("El rey del Jugador "+this.nombreJ1+" esta en peligro.");
+                    }
+                }else if(x==0){
+                   if( (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+                    System.out.println("El rey del Jugador "+this.nombreJ1+" esta en peligro.");
+                    
+                    }    
+                }
+            }else if(x>0 && y<7 && x>=0 && x<=7){
+                if(y==7){
+                    if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j)){
+                        System.out.println("El rey del Jugador "+this.nombreJ1+" esta en peligro.");
+                    }
+                }else if(y==0){
+                    if( (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+                        System.out.println("El rey del Jugador "+this.nombreJ1+" esta en peligro.");
+                    
+                    }
+                }
+            } 
+          }
+    }
     public boolean moverPeon(int x,int y,int a,int b,int j){
-        if(tablero[x][y] instanceof String){
+            valJaquePeon(x,y,j);
+         if(tablero[x][y] instanceof String){
             if(((x-a==1 || x-a==-1) && (y==b))){
                 if(j==1)
                     tablero[x][y]=new Peones(" PR ",j);
@@ -138,6 +200,7 @@ public class TableroJuego {
                 return false;
             }
         }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            mostrarMensaje(x,y,a,b,j);
             if(((x-a==1 || x-a==-1) && (y!=b))){
                 tablero[a][b]=new Object();
                 tablero[a][b]="  - ";
@@ -159,9 +222,26 @@ public class TableroJuego {
         }else{
             return false;
         }
-    }
+        
 
+    }
+public void verificarJaqueCaballo(int x, int y, int j){
+    if(j==1){
+        if(x!=1 && x!=7 && y!=1 && y!=7){
+            if((tablero[x-2][y-1] instanceof Rey && ((Piezas)tablero[x-2][y-1]).jugador!=j) || (tablero[x-2][y+1] instanceof Rey && ((Piezas)tablero[x-2][y+1]).jugador!=j) || (tablero[x+2][y-1] instanceof Rey && ((Piezas)tablero[x+2][y-1]).jugador!=j) || (tablero[x+2][y+1] instanceof Rey && ((Piezas)tablero[x+2][y+1]).jugador!=j)|| (tablero[x-1][y-2] instanceof Rey && ((Piezas)tablero[x-1][y-2]).jugador!=j) || (tablero[x+1][y-2] instanceof Rey && ((Piezas)tablero[x+1][y-2]).jugador!=j) || (tablero[x-1][y+2] instanceof Rey && ((Piezas)tablero[x-1][y+2]).jugador!=j) || (tablero[x+1][x+2] instanceof Rey && ((Piezas)tablero[x+1][y+2]).jugador!=j)){
+                System.out.println("El rey del jugador 2 esta en peligro.");
+            }
+        }
+    }else{
+        if(x!=1 && x!=7 && y!=1 && y!=7){
+            if((tablero[x-2][y-1] instanceof Rey && ((Piezas)tablero[x-2][y-1]).jugador!=j) || (tablero[x-2][y+1] instanceof Rey && ((Piezas)tablero[x-2][y+1]).jugador!=j) || (tablero[x+2][y-1] instanceof Rey && ((Piezas)tablero[x+2][y-1]).jugador!=j) || (tablero[x+2][y+1] instanceof Rey && ((Piezas)tablero[x+2][y+1]).jugador!=j)|| (tablero[x-1][y-2] instanceof Rey && ((Piezas)tablero[x-1][y-2]).jugador!=j) || (tablero[x+1][y-2] instanceof Rey && ((Piezas)tablero[x+1][y-2]).jugador!=j) || (tablero[x-1][y+2] instanceof Rey && ((Piezas)tablero[x-1][y+2]).jugador!=j) || (tablero[x+1][x+2] instanceof Rey && ((Piezas)tablero[x+1][y+2]).jugador!=j)){
+                System.out.println("El rey del jugador 1 esta en peligro.");
+            }
+        }
+    }
+}
     public boolean moverCaballo(int x,int y,int a,int b,int j){
+        verificarJaqueCaballo(x,y,j);
         if(tablero[x][y] instanceof String){
             if(((x-a==2 || x-a==-2) && (y-b==1 || y-b==-1)) || ((x-a==1 || x-a==-1) && (y-b==2 || y-b==-2))){
                 if(j==1)
@@ -176,6 +256,7 @@ public class TableroJuego {
                 return false;
             }
         }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            mostrarMensaje(x,y,a,b,j);
             if((((x-a==1 || x-a==-1)) && ((y-b==2 || y-b==-2))) || ((x-a==2 || x-a==-2) && (y-b==1 || y-b==-1))){
                 tablero[a][b]=new Object();
                 tablero[a][b]="  - ";
@@ -198,8 +279,23 @@ public class TableroJuego {
             return false;
         }
     }
-    
+    public void valJaqueVisir(int x, int y, int j){
+        if(j==1){
+            if(x>0 && x<7 && y>0 && y<7){
+                if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j)){
+                  System.out.println("El Rey del jugador "+this.nombreJ2+" esta en jaque. ");
+                }
+            }
+        }else{
+            if(x>0 && x<7 && y>0 && y<7){
+                if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j)){
+                  System.out.println("El Rey del jugador "+this.nombreJ1+" esta en jaque. ");
+                }
+            }
+        }
+    }
     public boolean moverVisir(int x,int y,int a,int b,int j){
+        valJaqueVisir(x,y,j);
         if(tablero[x][y] instanceof String){
             if(((x-a==1 || x-a==-1) && (y-b==1 || y-b==-1))){
                 if(j==1)
@@ -214,6 +310,7 @@ public class TableroJuego {
                 return false;
             }
         }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            mostrarMensaje(x,y,a,b,j);
             if((((x-a==1 || x-a==-1)) && ((y-b==1 || y-b==-1)))){
                 tablero[a][b]=new Object();
                 tablero[a][b]="  - ";
@@ -237,8 +334,28 @@ public class TableroJuego {
         }
     }
     
+    
+     public void verificarJaqueTorre(int x, int y, int j){
+      if(j==1){
+       for(int i=0;i<8;i++){
+            if((tablero[x][i] instanceof Rey && ((Piezas)tablero[x][i]).jugador!=j) || (tablero[i][y] instanceof Rey && ((Piezas)tablero[i][y]).jugador!=j)){
+              System.out.println("El Rey del jugador 2 esta en peligro.");
+            }
+      }
+      }else if(j==2){
+        for(int i=0;i<8;i++){
+        if((tablero[x][i] instanceof Rey &&((Piezas)tablero[x][i]).jugador!=j ) || (tablero[i][y] instanceof Rey && ((Piezas)tablero[i][y]).jugador!=j )){
+        System.out.println("El Rey del jugador 1 esta en peligro.");
+        }
+        }
+        }
+        }
+
+
+    
     public boolean moverTorre(int x, int y, int a,int b, int j){
         if(valTorre(x,y,a,b,1)){
+            verificarJaqueTorre(x,y,j);
             if(tablero[x][y] instanceof String){
                 if(x==a && y!=b){
                     tablero[a][b]=new Object();
@@ -261,6 +378,7 @@ public class TableroJuego {
                     return false;
                 }
             }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+                mostrarMensaje(x,y,a,b,j);
                 if((x==a && y!=b) || (x!=a && y==b)){
                     tablero[a][b]=new Object();
                     tablero[a][b]="  - ";
@@ -334,8 +452,66 @@ public class TableroJuego {
                 return false;
             }
     }
+        public void valJaqueElefante(int x, int y, int j){
+        if(j==1){
+            if(x>1 && x<6 && y>1 && y<6){
+                if((tablero[x-2][y-2] instanceof Rey && ((Piezas)tablero[x-2][y-2]).jugador!=j) || (tablero[x+2][y+2] instanceof Rey && ((Piezas)tablero[x+2][y+2]).jugador!=j) || (tablero[x+2][y-2] instanceof Rey && ((Piezas)tablero[x+2][y-2]).jugador!=j) || (tablero[x-2][y+2] instanceof Rey && ((Piezas)tablero[x-2][y+2]).jugador!=j)){
+                  System.out.println("El Rey del jugador "+this.nombreJ2+" esta en jaque. ");
+                }
+            }else if(x>1 && x<6 && y>=0 && y<=7){
+                if(y==6 || y==7){
+                    if((tablero[x-2][y-2] instanceof Rey && ((Piezas)tablero[x-2][y-2]).jugador!=j)  || (tablero[x+2][y-2] instanceof Rey && ((Piezas)tablero[x+2][y-2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ2+" esta en jaque. ");
+                    }
+                }else if(y==0 || y==1){
+                    if( (tablero[x+2][y+2] instanceof Rey && ((Piezas)tablero[x+2][y+2]).jugador!=j) ||  (tablero[x-2][y+2] instanceof Rey && ((Piezas)tablero[x-2][y+2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ2+" esta en jaque. ");
+                    }   
+                }
+            }else if(x>=0 && x<=7 && y>1 && y<6){
+                if(x==6 || x==7){
+                    if((tablero[x-2][y-2] instanceof Rey && ((Piezas)tablero[x-2][y-2]).jugador!=j) || (tablero[x-2][y+2] instanceof Rey && ((Piezas)tablero[x-2][y+2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ2+" esta en jaque. ");
+                    }
+                }else if(x==0 || x==1){
+                    if((tablero[x+2][y+2] instanceof Rey && ((Piezas)tablero[x+2][y+2]).jugador!=j) || (tablero[x+2][y-2] instanceof Rey && ((Piezas)tablero[x+2][y-2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ2+" esta en jaque. ");
+                    }
+                }
+                
+            }
+        }else{
+            if(x>1 && x<6 && y>1 && y<6){
+                if((tablero[x-2][y-2] instanceof Rey && ((Piezas)tablero[x-2][y-2]).jugador!=j) || (tablero[x+2][y+2] instanceof Rey && ((Piezas)tablero[x+2][y+2]).jugador!=j) || (tablero[x+2][y-2] instanceof Rey && ((Piezas)tablero[x+2][y-2]).jugador!=j) || (tablero[x-2][y+2] instanceof Rey && ((Piezas)tablero[x-2][y+2]).jugador!=j)){
+                  System.out.println("El Rey del jugador "+this.nombreJ1+" esta en jaque. ");
+                }
+            }else if(x>1 && x<6 && y>=0 && y<=7){
+                if(y==6 || y==7){
+                    if((tablero[x-2][y-2] instanceof Rey && ((Piezas)tablero[x-2][y-2]).jugador!=j)  || (tablero[x+2][y-2] instanceof Rey && ((Piezas)tablero[x+2][y-2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ1+" esta en jaque. ");
+                    }
+                }else if(y==0 || y==1){
+                    if( (tablero[x+2][y+2] instanceof Rey && ((Piezas)tablero[x+2][y+2]).jugador!=j) ||  (tablero[x-2][y+2] instanceof Rey && ((Piezas)tablero[x-2][y+2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ1+" esta en jaque. ");
+                    }   
+                }
+            }else if(x>=0 && x<=7 && y>1 && y<6){
+                if(x==6 || x==7){
+                    if((tablero[x-2][y-2] instanceof Rey && ((Piezas)tablero[x-2][y-2]).jugador!=j) || (tablero[x-2][y+2] instanceof Rey && ((Piezas)tablero[x-2][y+2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ1+" esta en jaque. ");
+                    }
+                }else if(x==0 || x==1){
+                    if((tablero[x+2][y+2] instanceof Rey && ((Piezas)tablero[x+2][y+2]).jugador!=j) || (tablero[x+2][y-2] instanceof Rey && ((Piezas)tablero[x+2][y-2]).jugador!=j)){
+                        System.out.println("El Rey del jugador "+this.nombreJ1+" esta en jaque. ");
+                    }
+                }
+                
+            }
+        }
+    }
     
     public boolean moverElefante(int x, int y, int a,int b, int j){
+        valJaqueElefante(x,y,j);
             if(tablero[x][y] instanceof String){
                 if((x-a==2 || x-a==-2) && (y-b==2 || y-b == -2)){
                     tablero[a][b]=new Object();
@@ -350,6 +526,7 @@ public class TableroJuego {
                     return false;
                 }
             }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+                mostrarMensaje(x,y,a,b,j);
                 if((x-a==2 || x-a==-2) && (y-b==2 || y-b == -2)){
                     tablero[a][b]=new Object();
                     tablero[a][b]="  - ";
@@ -372,6 +549,41 @@ public class TableroJuego {
         
     }
     
+
+
+    public void veerificarJaqueRey(int x, int y, int j){
+    if(j==1){
+    if((((Rey)tablero[x][y]).movimientoL)==false){
+    if(x!=8 && y!=8 && x!=1 && y!=1 && x!=1 && x!=7 && y!=1 && y!=7){
+    if((tablero[x-2][y-1] instanceof Rey && ((Piezas)tablero[x-2][y-1]).jugador!=j) || (tablero[x-2][y+1] instanceof Rey && ((Piezas)tablero[x-2][y+1]).jugador!=j) || (tablero[x+2][y-1] instanceof Rey && ((Piezas)tablero[x+2][y-1]).jugador!=j) || (tablero[x+2][y+1] instanceof Rey && ((Piezas)tablero[x+2][y+1]).jugador!=j)|| (tablero[x-1][y-2] instanceof Rey && ((Piezas)tablero[x-1][y-2]).jugador!=j) || (tablero[x+1][y-2] instanceof Rey && ((Piezas)tablero[x+1][y-2]).jugador!=j) || (tablero[x-1][y+2] instanceof Rey && ((Piezas)tablero[x-1][y+2]).jugador!=j) || (tablero[x+1][x+2] instanceof Rey && ((Piezas)tablero[x+1][y+2]).jugador!=j) ||
+    (tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+    System.out.println("El Rey del jugador 2 esta en peligro.");
+    }
+    }
+    else if(x!=8 && y!=8 && x!=1 && y!=1){
+    if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+    System.out.println("El Rey del jugador 2 esta en peligro.");
+    }
+    }
+    }else if(j==2){
+    if((((Rey)tablero[x][y]).movimientoL)==false){
+    if(x!=8 && y!=8 && x!=1 && y!=1 && x!=1 && x!=7 && y!=1 && y!=7){
+    if((tablero[x-2][y-1] instanceof Rey && ((Piezas)tablero[x-2][y-1]).jugador!=j) || (tablero[x-2][y+1] instanceof Rey && ((Piezas)tablero[x-2][y+1]).jugador!=j) || (tablero[x+2][y-1] instanceof Rey && ((Piezas)tablero[x+2][y-1]).jugador!=j) || (tablero[x+2][y+1] instanceof Rey && ((Piezas)tablero[x+2][y+1]).jugador!=j)|| (tablero[x-1][y-2] instanceof Rey && ((Piezas)tablero[x-1][y-2]).jugador!=j) || (tablero[x+1][y-2] instanceof Rey && ((Piezas)tablero[x+1][y-2]).jugador!=j) || (tablero[x-1][y+2] instanceof Rey && ((Piezas)tablero[x-1][y+2]).jugador!=j) || (tablero[x+1][x+2] instanceof Rey && ((Piezas)tablero[x+1][y+2]).jugador!=j) ||
+    (tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+    System.out.println("El Rey del jugador 1 esta en peligro.");
+    }
+    }
+    }else if(x!=8 && y!=8 && x!=1 && y!=1){
+    if((tablero[x-1][y-1] instanceof Rey && ((Piezas)tablero[x-1][y-1]).jugador!=j) || (tablero[x-1][y+1] instanceof Rey && ((Piezas)tablero[x-1][y+1]).jugador!=j) || (tablero[x+1][y-1] instanceof Rey && ((Piezas)tablero[x+1][y-1]).jugador!=j) || (tablero[x+1][y+1] instanceof Rey && ((Piezas)tablero[x+1][y+1]).jugador!=j)){
+    System.out.println("El Rey del jugador 1 esta en peligro.");
+    }
+    }
+
+
+    }
+
+    }
+    }
     public boolean moverRey(int x, int y, int a, int b, int j){
         if(tablero[x][y] instanceof String){
             if((x==a && (y-b==1 || y-b==-1)) || (y==b && (x-a==1 || x-a==-1)) || ((x-a==-1 || x-a==1) && (y-b==1 || y-b==-1))){
@@ -406,6 +618,7 @@ public class TableroJuego {
                 return false;
             }
         }else if(tablero[x][y] instanceof Piezas && ((Piezas)tablero[x][y]).jugador!=j){
+            mostrarMensaje(x,y,a,b,j);
             if((x==a && (y-b==1 || y-b==-1)) || (y==b && (x-a==1 || x-a==-1)) || ((x-a==-1 || x-a==1) && (y-b==1 || y-b==-1))){
                 tablero[a][b]=new Object();
                 tablero[a][b]="  - ";
@@ -501,7 +714,7 @@ public class TableroJuego {
         }
     }
     public void verificarJaque(int a, int b, int j){
-        if(a!=0 && a!=8 && b!=0 && b!=8){
+        if(a>0 && a<8 && b>0 && b<8){
         if((tablero[a-1][b-1] instanceof Peones && ((Piezas)tablero[a-1][b-1]).jugador!=j) || (tablero[a-1][b+1] instanceof Peones && ((Piezas)tablero[a-1][b+1]).jugador!=j) || (tablero[a+1][b-1] instanceof Peones && ((Piezas)tablero[a+1][b-1]).jugador!=j) || (tablero[a+1][b+1] instanceof Peones && ((Piezas)tablero[a+1][b+1]).jugador!=j)){
             if(j==1)
             System.out.println("El rey del jugador 2 esta en peligro.");
@@ -519,15 +732,5 @@ public class TableroJuego {
         }
     }
     
-    public void obtenerPosReyes(){
-        for(int i=0;i<tablero.length;i++){
-            for(int j=0;j<tablero[i].length;j++){
-                if(tablero[i][j] instanceof Rey && ((Rey)tablero[i][j]).jugador==1){
-                    verificarJaque(i,j,1);
-                }else if(tablero[i][j] instanceof Rey && ((Rey)tablero[i][j]).jugador==2){
-                    verificarJaque(i,j,2);
-                }
-            }
-        }
-    }
+    
 }

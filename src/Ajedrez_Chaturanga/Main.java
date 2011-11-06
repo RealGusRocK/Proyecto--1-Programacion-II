@@ -109,7 +109,7 @@ public class Main {
                               break;
                             }
                     }
-                    tablero.obtenerPosReyes();
+                  //  tablero.obtenerPosReyes();
                     if(tablero.terminarJuego()){
                         stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 2, 1,contx);
                         contx++;
@@ -186,7 +186,7 @@ public class Main {
                             
                             
                     }
-                    tablero.obtenerPosReyes();
+                   // tablero.obtenerPosReyes();
                     if(tablero.terminarJuego()){
                         stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 1, 1,contx);
                         contx++;

@@ -46,7 +46,6 @@ public class Estadisticas {
         int tm,tm1,tmx;
         for(int i=0;i<10;i++){
             for(int j=0;j<9;j++){
-                System.out.println(x[i]);
                 if(x[j]<x[j+1]){
                     
                     temp1=Ganador[j];
