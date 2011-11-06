@@ -16,10 +16,11 @@ public class Main {
         int opc1=0;
         int fili = 0,coli = 0,filf = 0,colf = 0;
         TableroJuego tablero=new TableroJuego();
+        Estadisticas stats=new Estadisticas();
         boolean retirar=false;
         String piezamover;
-        String Jugador1;
-        String Jugador2;
+        int contx=0;
+        
         
         
         for(int i=0;i==0;i*=0){
@@ -34,6 +35,7 @@ public class Main {
             
             if(opc1==1){
                 retirar=false;
+                tablero.juegoTerminado=false;
                 System.out.println("Nombre del Jugador 1");
                 tablero.nombreJ1=lea.next();
                 System.out.println("Nombre del Jugador 2");
@@ -107,8 +109,16 @@ public class Main {
                               break;
                             }
                     }
+                    tablero.obtenerPosReyes();
+                    if(tablero.terminarJuego()){
+                        stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 2, 1,contx);
+                        contx++;
+                        break;
+                    }
                     if(retirar){
                         System.out.println("El jugador "+tablero.nombreJ2+" ha ganado porque el jugador "+tablero.nombreJ1+" se ha retirado.");
+                        stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 2,-1,contx);
+                        contx++;
                         break;
                     }
                             System.out.println("Jugador 2 Es su Turno.");
@@ -176,14 +186,26 @@ public class Main {
                             
                             
                     }
+                    tablero.obtenerPosReyes();
+                    if(tablero.terminarJuego()){
+                        stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 1, 1,contx);
+                        contx++;
+                        break;
+                    }
                     if(retirar){
                         System.out.println("El jugador "+tablero.nombreJ1+" ha ganado porque el jugador "+tablero.nombreJ2+" se ha retirado.");
+                        stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 1, -1,contx);
+                        contx++;
                         break;
                     }
                 }
                 
             }else if(opc1==2){
+                System.out.println("********\t\t Estadisticas \t\t********");
+                System.out.println("");
+                    stats.ordenar();
                 
+                stats.imprimir();       
             }else if(opc1==3){
                 System.out.println("Suerte para la proxima..");
                 break;

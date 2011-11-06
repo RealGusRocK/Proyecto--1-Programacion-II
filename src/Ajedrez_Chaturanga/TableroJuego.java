@@ -6,6 +6,7 @@ public class TableroJuego {
     private boolean verificarpieza=false;
     public String nombreJ1;
     public String nombreJ2;
+    public boolean juegoTerminado=false;
     
     public void generarTablero(){
         for(int a=0;a<tablero.length;a++){
@@ -28,9 +29,9 @@ public class TableroJuego {
         tablero[7][6]=new Caballos(" CV ",2);
         tablero[0][7]=new Torres(" TR ",1);
         tablero[7][7]=new Torres(" TV ",2);
-        for(int i=0;i<tablero.length;i++){
+        for(int i=2;i<=5;i++){
             for(int j=0;j<tablero[i].length;j++){
-                if(tablero[i][j]==null)
+                tablero[i][j]=new Object();
                 tablero[i][j]=" - ";
             }
         }
@@ -478,6 +479,54 @@ public class TableroJuego {
             
             if(j==1){
                 System.out.println(this.nombreJ1+" se comio con la pieza "+pieza1+" a la pieza "+pieza2+ " del jugador "+this.nombreJ2);
+                if(pieza2.equals("Rey")){
+                    juegoTerminado=true;
+                    
+                }
+            }else{
+                System.out.println(this.nombreJ2+" se comio con la pieza "+pieza1+" a la pieza "+pieza2+ " del jugador "+this.nombreJ1);
+                if(pieza2.equals("Rey")){
+                    juegoTerminado=true;
+                    
+                }
+            }
+        }
+    }
+    public boolean terminarJuego(){
+        if(this.juegoTerminado){
+            System.out.println("Fin del Juego.");
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void verificarJaque(int a, int b, int j){
+        if(a!=0 && a!=8 && b!=0 && b!=8){
+        if((tablero[a-1][b-1] instanceof Peones && ((Piezas)tablero[a-1][b-1]).jugador!=j) || (tablero[a-1][b+1] instanceof Peones && ((Piezas)tablero[a-1][b+1]).jugador!=j) || (tablero[a+1][b-1] instanceof Peones && ((Piezas)tablero[a+1][b-1]).jugador!=j) || (tablero[a+1][b+1] instanceof Peones && ((Piezas)tablero[a+1][b+1]).jugador!=j)){
+            if(j==1)
+            System.out.println("El rey del jugador 2 esta en peligro.");
+            else
+                System.out.println("El rey del jugador 1 esta en peligro.");
+        }
+        }
+        if(a!=1 && a!=7 && b!=1 && b!=7){
+        if((tablero[a-2][b-1] instanceof Caballos && ((Piezas)tablero[a-2][b-1]).jugador!=j) || (tablero[a-2][b+1] instanceof Caballos && ((Piezas)tablero[a-2][b+1]).jugador!=j) || (tablero[a+2][b-1] instanceof Caballos && ((Piezas)tablero[a+2][b-1]).jugador!=j) || (tablero[a+2][b+1] instanceof Caballos && ((Piezas)tablero[a+2][b+1]).jugador!=j)|| (tablero[a-1][b-2] instanceof Caballos && ((Piezas)tablero[a-1][b-2]).jugador!=j) || (tablero[a+1][b-2] instanceof Caballos && ((Piezas)tablero[a+1][b-2]).jugador!=j) || (tablero[a-1][b+2] instanceof Caballos && ((Piezas)tablero[a-1][b+2]).jugador!=j) || (tablero[a+1][b+2] instanceof Caballos && ((Piezas)tablero[a+1][b+2]).jugador!=j)){
+            if(j==1)
+            System.out.println("El rey del jugador 2 esta en peligro.");
+            else
+                System.out.println("El rey del jugador 1 esta en peligro.");
+        }
+        }
+    }
+    
+    public void obtenerPosReyes(){
+        for(int i=0;i<tablero.length;i++){
+            for(int j=0;j<tablero[i].length;j++){
+                if(tablero[i][j] instanceof Rey && ((Rey)tablero[i][j]).jugador==1){
+                    verificarJaque(i,j,1);
+                }else if(tablero[i][j] instanceof Rey && ((Rey)tablero[i][j]).jugador==2){
+                    verificarJaque(i,j,2);
+                }
             }
         }
     }
