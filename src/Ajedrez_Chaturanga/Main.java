@@ -6,10 +6,11 @@ package Ajedrez_Chaturanga;
 
 /**
  *
- * @author Gustavo
+ * @author Gustavo y German
  */
 import java.util.Scanner;
-public class Main {
+public class Main {                                     //Grupo: Gustavo Alfredo Ocampo 21111020
+                                                               //German David Reyes 21111130
 
     public static void main(String[] args) {
         Scanner lea=new Scanner(System.in);
@@ -34,6 +35,9 @@ public class Main {
             opc1=lea.nextInt();
             
             if(opc1==1){
+                System.out.println("JUGAR CHATURANGA");
+                Piezas.PiezasPerdidas1=0;
+                Piezas.PiezasPerdidas2=0;
                 retirar=false;
                 tablero.juegoTerminado=false;
                 System.out.println("Nombre del Jugador 1");
@@ -42,7 +46,7 @@ public class Main {
                 tablero.nombreJ2=lea.next();
                 tablero.generarTablero();
                 for(int j=0;j==0;j*=0){
-                    
+                    System.out.println("***********************************");
                     System.out.println("Jugador 1 es su turno");
                     System.out.println("");
 
@@ -74,6 +78,8 @@ public class Main {
                             if(c=='S'){
                                 retirar=true;
                                 break;
+                            }else{
+                                continue;
                             }
                     }
                             if(tablero.verificarPieza(fili-1, coli-1, 1)){
@@ -109,18 +115,19 @@ public class Main {
                               break;
                             }
                     }
-                  //  tablero.obtenerPosReyes();
                     if(tablero.terminarJuego()){
-                        stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 2, 1,contx);
+                        stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 2, 1,contx,0);
                         contx++;
                         break;
                     }
                     if(retirar){
                         System.out.println("El jugador "+tablero.nombreJ2+" ha ganado porque el jugador "+tablero.nombreJ1+" se ha retirado.");
-                        stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 2,-1,contx);
+                        stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 2,-1,contx,0);
                         contx++;
                         break;
                     }
+                            System.out.println("***********************************");
+                            System.out.println("\n");
                             System.out.println("Jugador 2 Es su Turno.");
                             System.out.println("");
                     for(int x=0;x==0;x*=0){        
@@ -149,6 +156,8 @@ public class Main {
                         if(c=='S'){
                             retirar=true;
                             break;
+                        }else{
+                            continue;
                         }
                     }
                             if(tablero.verificarPieza(fili-1, coli-1, 2)){
@@ -186,15 +195,16 @@ public class Main {
                             
                             
                     }
-                   // tablero.obtenerPosReyes();
+                            System.out.println("***********************************");
+                            System.out.println("\n");
                     if(tablero.terminarJuego()){
-                        stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 1, 1,contx);
+                        stats.agregarEstadisticas(tablero.nombreJ2, tablero.nombreJ1, 1, 1,contx,0);
                         contx++;
                         break;
                     }
                     if(retirar){
                         System.out.println("El jugador "+tablero.nombreJ1+" ha ganado porque el jugador "+tablero.nombreJ2+" se ha retirado.");
-                        stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 1, -1,contx);
+                        stats.agregarEstadisticas(tablero.nombreJ1, tablero.nombreJ2, 1, -1,contx,0);
                         contx++;
                         break;
                     }
