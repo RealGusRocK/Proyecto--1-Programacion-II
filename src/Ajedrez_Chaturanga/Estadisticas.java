@@ -17,26 +17,24 @@ public class Estadisticas {
     public int cont=0;
     public int x[]=new int [10];
     
-    public void agregarEstadisticas(String g, String p, int j,int a,int y){
-       if(cont==10)
-           cont--;
-        if(Ganador[cont]==null){
-           Ganador[cont]=g;
-           Perdedor[cont]=p;
-           m[cont]=a;
-           jugador[cont]=j;
-           x[cont]=y;
-           cont++;
-       }else{
-           Ganador[9]=null;
-           Perdedor[9]=null;
-           m[9]=0;
-           jugador[9]=0;
-           x[9]=y;
-           ordenar();
-           agregarEstadisticas(g,p,j,a,y);
-       }
-        
+    public void agregarEstadisticas(String g, String p, int j, int a, int y, int x){
+        if(x<10){
+            if(Ganador[x]==null && x<=9){
+                Ganador[x]=g;
+                Perdedor[x]=p;
+                m[x]=a;
+                jugador[x]=j;
+                this.x[x]=y;
+            }else if(Ganador[x]!=null && x==9){
+                Ganador[x]=g;
+                Perdedor[x]=p;
+                m[x]=a;
+                jugador[x]=j;
+                this.x[x]=y;
+            }else{
+                agregarEstadisticas(g,p,j,a,y,x+1);
+            }
+        }
     }
     public void ordenar(){
         
